@@ -1,0 +1,19 @@
+@import "tailwindcss";
+body{
+    font-family: 'font1', serif;
+    font-display: swap;
+    /* font-weight: 700; */
+}
+
+  /* Font 3 */
+  @font-face {
+    font-family: 'font1';
+    src: url('/fonts/pe0TMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp7t1R-s%20(1).woff2') format('woff2');
+    font-display: swap;
+    /* font-weight: 400; */
+}
+
+
+  .font1 {
+    font-family: 'font1', serif;
+  }
