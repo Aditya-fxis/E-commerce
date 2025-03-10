@@ -3,6 +3,7 @@ import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { BsCart4 } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [currency, setCurrency] = useState('USD');
@@ -52,10 +53,10 @@ const Header = () => {
         <nav className="w-1/2">
           <ul className="flex justify-center space-x-12">
             <li className="relative">
-              <a href="./index.html" className="text-lg font-semibold text-gray-900">Home</a>
+              <Link to="" className="text-lg font-semibold text-gray-900">Home</Link>
             </li>
             <li className="relative">
-              <a href="./shop.html" className="text-lg font-semibold text-gray-900">Shop</a>
+              <Link to="./shop" className="text-lg font-semibold text-gray-900">Shop</Link>
             </li>
             <li className="relative">
               <a href="#" className="text-lg font-semibold text-gray-900">Pages</a>

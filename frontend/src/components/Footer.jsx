@@ -1,83 +1,74 @@
 import React from "react";
+import { FaFacebookF, FaInstagram, FaTwitter, FaPinterest, FaCcVisa, FaCcMastercard, FaCcPaypal } from "react-icons/fa";
 
 const Footer = () => {
+    const currentYear = new Date().getFullYear();
     return (
-        <>
-            <footer className="bg-slate-100 text-gray-700">
-                <section className="grid grid-cols-1  max-w-7xl mx-auto md:grid-cols-2 lg:grid-cols-4 gap-6 p-10">
-                    <div>
-                        <h2 className="font-bold  text-lg mb-4">About Us</h2>
-                        <p className=" text-sm ">
-                            We bring you the latest fashion trends at unbeatable prices. Shop
-                            from our extensive range of clothes, shoes, and accessories for
-                            every occasion.
-                        </p>
-                        <div className="mt-4">
-                            <img src="../../public/payment.png" alt="Payment Methods" className=" max-w-xs" />
-                        </div>
+        <footer className="bg-black text-gray-300">
+            <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 p-10">
+                {/* About Section */}
+                <div>
+                    <h2 className="text-white text-lg font-semibold mb-4">About Us</h2>
+                    <p className="text-sm">
+                        Discover the latest fashion trends with us. Shop from our curated selection of clothing, 
+                        footwear, and accessories tailored for every occasion.
+                    </p>
+                    <div className="mt-4 flex gap-2 text-xl">
+                        <FaCcVisa className="text-blue-500" />
+                        <FaCcMastercard className="text-red-600" />
+                        <FaCcPaypal className="text-blue-400" />
                     </div>
-
-                    <div>
-                        <h2 className="font-bold   text-lg mb-4">Popular Categories</h2>
-                        <ul className="flex flex-col gap-3">
-                            <li className=" text-sm hover:  cursor-pointer">Men's Clothing</li>
-                            <li className=" text-sm hover:  cursor-pointer">Women's Clothing</li>
-                            <li className=" text-sm hover:  cursor-pointer">Kid's Wear</li>
-                            <li className=" text-sm hover:  cursor-pointer">Footwear</li>
-                            <li className=" text-sm hover:  cursor-pointer">Accessories</li>
-                        </ul>
-                    </div>
-
-                    {/* Customer Support */}
-                    <div>
-                        <h2 className="font-bold  text-lg mb-4">Customer Support</h2>
-                        <ul className="flex flex-col gap-3">
-                            <li className=" text-sm hover:  cursor-pointer">Help Center</li>
-                            <li className=" text-sm hover:  cursor-pointer">FAQs</li>
-                            <li className=" text-sm hover:  cursor-pointer">Returns & Refunds</li>
-                            <li className=" text-sm hover:  cursor-pointer">Shipping Policy</li>
-                            <li className=" text-sm hover:  cursor-pointer">Contact Us</li>
-                        </ul>
-                    </div>
-
-                    {/* Connect with Us */}
-                    <div>
-                        <h2 className="font-bold  text-lg mb-4">Connect with Us</h2>
-                        <div className="flex gap-4">
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center hover: text-blue-700 hover:bg-gray-200"
-                            >
-                                <i className="fab fa-facebook-f"></i>
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center hover: text-pink-600 hover:bg-gray-200"
-                            >
-                                <i className="fab fa-instagram"></i>
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center hover: text-blue-400 hover:bg-gray-200"
-                            >
-                                <i className="fab fa-twitter"></i>
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center hover: text-red-600 hover:bg-gray-200"
-                            >
-                                <i className="fab fa-pinterest"></i>
-                            </a>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Bottom Footer */}
-                <div className="bg-slate-200 py-4  text-center">
-                    <p className=" text-sm">© 2024 Your Brand Name. All Rights Reserved.</p>
                 </div>
-            </footer>
-        </>
+
+                {/* Popular Categories */}
+                <div>
+                    <h2 className="text-white text-lg font-semibold mb-4">Popular Categories</h2>
+                    <ul className="space-y-3">
+                        {["Men's Fashion", "Women's Fashion", "Kids' Wear", "Footwear", "Accessories"].map((item, index) => (
+                            <li key={index} className="text-sm hover:text-white cursor-pointer transition-colors">
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                {/* Customer Support */}
+                <div>
+                    <h2 className="text-white text-lg font-semibold mb-4">Customer Support</h2>
+                    <ul className="space-y-3">
+                        {["Help Center", "FAQs", "Returns & Refunds", "Shipping Policy", "Contact Us"].map((item, index) => (
+                            <li key={index} className="text-sm hover:text-white cursor-pointer transition-colors">
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                {/* Connect with Us */}
+                <div>
+                    <h2 className="text-white text-lg font-semibold mb-4">Follow Us</h2>
+                    <div className="flex gap-4">
+                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
+                            <FaFacebookF className="text-blue-500 text-lg" />
+                        </a>
+                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
+                            <FaInstagram className="text-pink-500 text-lg" />
+                        </a>
+                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
+                            <FaTwitter className="text-blue-400 text-lg" />
+                        </a>
+                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
+                            <FaPinterest className="text-red-600 text-lg" />
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            {/* Bottom Footer */}
+            <div className="bg-black border-t border-gray-600 py-4 text-center">
+                <p className="text-sm text-gray-400">© {currentYear} Your Brand Name. All Rights Reserved.</p>
+            </div>
+        </footer>
     );
 };
 
