@@ -56,7 +56,7 @@ const Header = () => {
               <Link to="" className="text-lg font-semibold text-gray-900">Home</Link>
             </li>
             <li className="relative">
-              <Link to="./shop" className="text-lg font-semibold text-gray-900">Shop</Link>
+              <Link to="/shop" className="text-lg font-semibold text-gray-900">Shop</Link>
             </li>
             <li className="relative">
               <a href="#" className="text-lg font-semibold text-gray-900">Pages</a>
@@ -69,10 +69,10 @@ const Header = () => {
               </ul>
             </li>
             <li className="relative">
-              <a href="./blog.html" className="text-lg font-semibold text-gray-900">Blog</a>
+              <Link to="/blog" className="text-lg font-semibold text-gray-900">Blog</Link>
             </li>
             <li>
-              <a href="./contact.html" className="text-lg font-semibold text-gray-900">Contacts</a>
+              <Link to="/contact" className="text-lg font-semibold text-gray-900">Contacts</Link>
             </li>
           </ul>
         </nav>
@@ -85,10 +85,10 @@ const Header = () => {
           <a href="#" className="relative">
           <MdOutlineFavoriteBorder className='text-2xl' />
           </a>
-          <a href="#" className="relative">
+          <Link to="/cart" className="relative">
           <BsCart4 className='text-2xl'/>
             <span className="absolute top-0 left-6 text-xs font-bold text-white">0</span>
-          </a>
+          </Link>
           <div className="text-lg font-bold text-gray-900">$0.00</div>
         </div>
       </div>
