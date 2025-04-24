@@ -1,10 +1,11 @@
 import React from "react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaPinterest, FaCcVisa, FaCcMastercard, FaCcPaypal } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
     return (
-        <footer className="bg-black text-gray-300">
+        <footer className="bg-black text-gray-300 w-full">
             <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 p-10">
                 {/* About Section */}
                 <div>
@@ -48,18 +49,18 @@ const Footer = () => {
                 <div>
                     <h2 className="text-white text-lg font-semibold mb-4">Follow Us</h2>
                     <div className="flex gap-4">
-                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
+                        <Link to="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
                             <FaFacebookF className="text-blue-500 text-lg" />
-                        </a>
-                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
+                        </Link>
+                        <Link to="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
                             <FaInstagram className="text-pink-500 text-lg" />
-                        </a>
-                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
+                        </Link>
+                        <Link to="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
                             <FaTwitter className="text-blue-400 text-lg" />
-                        </a>
-                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
+                        </Link>
+                        <Link to="#" className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-full hover:bg-gray-600 transition">
                             <FaPinterest className="text-red-600 text-lg" />
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </section>

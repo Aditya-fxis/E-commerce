@@ -1,12 +1,6 @@
-from .models import Product, Category, ContactMessage
+from .models import Product, Category, ContactMessage, ProductImage, BillingDetails, Order
 from rest_framework import serializers
 
-class ProductSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(use_url=True)
-    class Meta:
-        model=Product
-        fields="__all__"
-        
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model=Category
@@ -17,4 +11,23 @@ class ContactMessageSerializer(serializers.ModelSerializer):
         model = ContactMessage
         fields = "__all__"
         
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ["id", "image"]
+
+class ProductSerializer(serializers.ModelSerializer):
+    images = ProductImageSerializer (many=True, read_only=True)
+    class Meta:
+        model=Product
+        fields="__all__"
         
+class BillingDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BillingDetails
+        fields = "__all__"
+        
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Order
+        fields="__all__"

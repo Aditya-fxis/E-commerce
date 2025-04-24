@@ -5,10 +5,18 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
-from rest_framework.authentication import TokenAuthentication
+# from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import CustomUser
 from api.serializers import UserRegistrationSerializer, UserLoginSerializer, UserProfileSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
+def get_tokens_for_user(user):
+    """ Function to generate JWT access and refresh tokens for a user """
+    refresh = RefreshToken.for_user(user)
+    return {
+        "access": str(refresh.access_token),
+        "refresh": str(refresh),
+    }
 
 #  User Registration View
 class UserRegistrationView(APIView):
@@ -16,10 +24,10 @@ class UserRegistrationView(APIView):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            token, created = Token.objects.get_or_create(user=user)
+            token = get_tokens_for_user(user)
             return Response({
                 "message": "User registered successfully.",
-                "token": token.key
+                "token": token
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -30,19 +38,19 @@ class UserLoginView(APIView):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data
-            update_last_login(None, user)  # Update last login timestamp
-            token, created = Token.objects.get_or_create(user=user)
+            update_last_login(None, user)
+            tokens = get_tokens_for_user(user)
             return Response({
                 "message": "Login successful.",
-                "token": token.key
+                "tokens": tokens,
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #  User Profile View (Requires Authentication)
 class UserProfileView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request):
         serializer = UserProfileSerializer(request.user)

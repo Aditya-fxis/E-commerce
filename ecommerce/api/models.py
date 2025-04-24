@@ -30,7 +30,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=30)
     phone_number = models.CharField(max_length=10, unique=True)
     address = models.TextField(blank=True, null=True)  # Optional shipping address
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    # profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    profile_picture = models.CharField(null=True, max_length=250)
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='customer')
     is_verified = models.BooleanField(default=False)  # Email/phone verification status
     is_active = models.BooleanField(default=True)

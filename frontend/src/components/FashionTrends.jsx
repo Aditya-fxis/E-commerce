@@ -1,5 +1,6 @@
 import React from "react";
 import { PiCalendarDotsThin } from "react-icons/pi";
+import { Link } from "react-router-dom";
 
 const blogPosts = [
   { id: 1, image: "blog-1.jpg", date: "16 February 2025", title: "What Curling Irons Are The Best Ones" },
@@ -17,7 +18,7 @@ const FashionTrends = ({ limit }) => {
   const displayedPosts = limit ? blogPosts.slice(0, limit) : blogPosts;
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {displayedPosts.map((post) => (
           <div key={post.id} className="group">
@@ -32,12 +33,12 @@ const FashionTrends = ({ limit }) => {
                 <h1 className="text-black max-w-[300px] font-bold text-1xl mt-4">
                   {post.title}
                 </h1>
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="inline-block text-black text-sm font-bold tracking-[3px] uppercase relative py-1 after:content-[''] after:block after:w-full after:h-[2px] after:bg-black after:transition-all after:duration-300 group-hover:after:w-10 group-hover:after:bg-red-500 mt-2"
                 >
                   Read More
-                </a>
+                </Link>
               </div>
             </div>
           </div>

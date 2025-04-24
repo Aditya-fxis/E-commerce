@@ -10,7 +10,14 @@ import { TiSocialFacebook, TiSocialTwitter } from "react-icons/ti";
 import { FaPinterest, FaInstagram } from "react-icons/fa";
 
 const Hero = () => {
-  const images = ["/hero-1.jpg", "/hero-2.jpg", "/hero-3.jpg", "/hero-4.jpg", "/hero-5.jpg", "/hero-6.jpg",];
+  const images = [
+    "/hero-1.jpg",
+    "/hero-2.jpg",
+    "/hero-3.jpg",
+    "/hero-4.jpg",
+    "/hero-5.jpg",
+    "/hero-6.jpg",
+  ];
 
   return (
     <div className="relative h-screen w-full">
@@ -28,7 +35,7 @@ const Hero = () => {
           {`
       .swiper-button-next, .swiper-button-prev {
         color: black !important;
-        margin : 0px 50px;
+        margin : 0px 10px;
       }
     `}
         </style>
@@ -36,7 +43,7 @@ const Hero = () => {
           <SwiperSlide key={index}>
             <div className="relative h-screen w-full">
               <img
-                className="h-[110vh] w-full object-cover"
+                className="h-[110vh] w-full object-fill lg:object-cover"
                 src={image}
                 alt="Hero Image"
               />
@@ -79,29 +86,33 @@ const Hero = () => {
                 </motion.button>
 
                 {/* Social Media Links */}
-                <div className="flex gap-4 text-xl text-gray-500 top-115 absolute">
-                  <motion.span className="cursor-pointer"
+                <div className="flex gap-4 text-xl text-gray-500 mt-8">
+                  <motion.span
+                    className="cursor-pointer"
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: "easeOut", delay: 0.28 }}
                   >
                     <TiSocialTwitter />
                   </motion.span>
-                  <motion.span className="cursor-pointer"
+                  <motion.span
+                    className="cursor-pointer"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: "easeOut", delay: 0.28 }}
                   >
                     <TiSocialFacebook />
                   </motion.span>
-                  <motion.span className="cursor-pointer"
+                  <motion.span
+                    className="cursor-pointer"
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: "easeOut", delay: 0.28 }}
                   >
                     <FaPinterest />
                   </motion.span>
-                  <motion.span className="cursor-pointer"
+                  <motion.span
+                    className="cursor-pointer"
                     initial={{ opacity: 0, y: 45 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: "easeOut", delay: 0.28 }}
@@ -119,4 +130,3 @@ const Hero = () => {
 };
 
 export default Hero;
-

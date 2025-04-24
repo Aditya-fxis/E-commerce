@@ -38,8 +38,7 @@ const Categories = ({ selectedCategory, onSelectCategory }) => {
           />
         )}
       </div>
-
-
+      
       <motion.div
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: isCollapsed ? 0 : "auto", opacity: isCollapsed ? 0 : 1 }}

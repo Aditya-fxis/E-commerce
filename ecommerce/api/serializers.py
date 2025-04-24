@@ -7,7 +7,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'first_name', 'last_name', 'phone_number', 'password', 'user_type']
+        fields = ['email', 'first_name', 'last_name', 'phone_number', 'password', 'user_type', 'profile_picture']
 
     def create(self, validated_data):
         user = CustomUser.objects.create_user(
@@ -16,10 +16,10 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             last_name=validated_data['last_name'],
             phone_number=validated_data['phone_number'],
             password=validated_data['password'],
-            user_type=validated_data.get('user_type', 'customer')
+            user_type=validated_data.get('user_type', 'customer'),
+            profile_picture=validated_data.get('profile_picture')
         )
         return user
-
 
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -37,4 +37,4 @@ class UserLoginSerializer(serializers.Serializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['email', 'first_name', 'last_name', 'phone_number', 'user_type', 'profile_picture', 'address', 'is_verified']
+        fields = ['id', 'email', 'first_name', 'last_name', 'phone_number', 'user_type', 'profile_picture', 'address', 'is_verified', 'last_login']
