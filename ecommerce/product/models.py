@@ -62,6 +62,7 @@ class Order(models.Model):
     items = models.JSONField()  # or use related models if you prefer
     created_at = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
+    user = models.ForeignKey("api.CustomUser", on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Order {self.id} - Paid: {self.paid}"

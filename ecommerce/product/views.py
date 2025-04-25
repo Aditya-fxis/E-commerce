@@ -110,7 +110,7 @@ class ContactMessageCreateView(CreateAPIView):
 
 
 class BillingDetailsCreateView(CreateAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = BillingDetails.objects.all()
     serializer_class = BillingDetailsSerializer
 
@@ -149,7 +149,7 @@ def create_checkout_session(request):
             cancel_url="http://localhost:5173/checkout",
         )
 
-        Order.objects.create(session_id=session.id, items=items)
+        Order.objects.create(session_id=session.id, items=items, user=request.user)
 
         return Response({"id": session.id})
     except Exception as e:
@@ -177,19 +177,11 @@ def verify_payment(request):
 
 
 class OrderLCView(ListCreateAPIView):
-    # permission_classes = [IsAuthenticated]
     serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        try:
-            return Order.objects.all()
-        except Exception as e:
-            logger.error(f"Error in OrderLCView.get_queryset: {str(e)}")
-            return Order.objects.none()
+        return Order.objects.filter(user=self.request.user)
 
-    def post(self, request, *args, **kwargs):
-        try:
-            return super().post(request, *args, **kwargs)
-        except Exception as e:
-            logger.error(f"Error in OrderLCView.post: {str(e)}")
-            return Response({"error": "Failed to create order"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

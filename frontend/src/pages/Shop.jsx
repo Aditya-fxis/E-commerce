@@ -80,15 +80,14 @@ const Shop = () => {
 
         {/* Add Product */}
 
-        {profile?.user_type === "admin" ||
-          ("Admin" && (
-            <button
-              className="w-full mb-1 bg-black text-white border border-black hover:text-black py-3 px-3 hover:bg-white transition-all duration-300 ease-in-out cursor-pointer uppercase tracking-[1px] text-xs"
-              onClick={openAddProductModal}
-            >
-              Add Product
-            </button>
-          ))}
+        {(profile?.user_type === "admin" || profile?.user_type === "Admin") && (
+          <button
+            className="w-full mb-1 bg-black text-white border border-black hover:text-black py-3 px-3 hover:bg-white transition-all duration-300 ease-in-out cursor-pointer uppercase tracking-[1px] text-xs"
+            onClick={openAddProductModal}
+          >
+            Add Product
+          </button>
+        )}
 
         {/* Clear Filters */}
         <button
@@ -127,15 +126,15 @@ const Shop = () => {
         </div>
 
         {/* Add Product */}
-        {profile?.user_type === "admin" ||
-          "Admin" && (
-            <button
-              className="w-full mb-1 bg-black text-white border border-black hover:text-black py-3 px-3 hover:bg-white transition-all duration-300 ease-in-out cursor-pointer uppercase tracking-[1px] text-xs"
-              onClick={openAddProductModal}
-            >
-              Add Product
-            </button>
-          )}
+        {(profile?.user_type === "admin" || profile?.user_type === "Admin") && (
+          <button
+            className="w-full mb-1 bg-black text-white border border-black hover:text-black py-3 px-3 hover:bg-white transition-all duration-300 ease-in-out cursor-pointer uppercase tracking-[1px] text-xs"
+            onClick={openAddProductModal}
+          >
+            Add Product
+          </button>
+        )}
+
         {/* Clear Filters */}
         <button
           className="w-full mb-6 border border-black hover:text-white py-3 px-3 hover:bg-black transition-all duration-300 ease-in-out cursor-pointer uppercase tracking-[1px] text-xs"

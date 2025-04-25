@@ -17,6 +17,9 @@ import AddProduct from "./components/AddProduct";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
+import PublicRoute from "./routes/PublicRoute";
+import PrivateRoute from "./routes/PrivateRoute";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
@@ -25,10 +28,24 @@ const App = () => {
         <Header />
         <main className="flex-grow mt-[88px]">
           <Routes>
+            {/* Public Routes */}
+            <Route element={<PublicRoute />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+            </Route>
+
+            {/* Private Routes */}
+            <Route element={<PrivateRoute />}>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/success" element={<Success />} />
+              <Route path="/order" element={<Order />} />
+              <Route path="/add-product" element={<AddProduct />} />
+              <Route path="/add-product/:id" element={<AddProduct />} />
+            </Route>
+
+            {/* Always Accessible Routes */}
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
@@ -36,11 +53,9 @@ const App = () => {
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<AboutUs />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/success" element={<Success />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/add-product" element={<AddProduct />} />
-            <Route path="/add-product/:id" element={<AddProduct />} />
+
+            {/* 404 Not Found */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

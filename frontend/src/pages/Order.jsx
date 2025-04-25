@@ -3,11 +3,14 @@ import React, { useEffect, useState } from "react";
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
+  const accessToken = localStorage.getItem("access_token");
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/order/");
+        const res = await axios.get("http://localhost:8000/order/", { headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },});
         setOrders(res.data);
       } catch (err) {
         console.error("Failed to fetch orders:", err);
@@ -31,7 +34,7 @@ const Order = () => {
         orders.map((order) => (
           <div
             key={order.id}
-            className="mb-6 p-4 sm:p-6 border rounded-2xl shadow-md bg-white transition-all hover:shadow-lg"
+            className="mb-6 p-4 sm:p-6 border-b border-green-400 rounded-2xl shadow-md bg-white transition-all hover:shadow-lg"
           >
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
               <div>
@@ -66,13 +69,13 @@ const Order = () => {
                       </p>
                     </div>
                     <div className="text-right text-gray-800">
-                      ₹{item.price * item.quantity}
+                      ${item.price * item.quantity}
                     </div>
                   </div>
                 ))}
               </div>
               <div className="mt-4 text-right font-bold text-lg text-green-500">
-                Total: ₹{calculateTotal(order.items)}
+                Total: ${calculateTotal(order.items)}
               </div>
             </div>
           </div>

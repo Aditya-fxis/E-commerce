@@ -28,7 +28,7 @@ const Checkout = () => {
   };
 
   const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_API_URL);
-
+  const access_token = localStorage.getItem("access_token");
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +39,9 @@ const Checkout = () => {
     try {
       const response = await axios.post(
         "http://localhost:8000/billing/",
-        formData
+        formData, {
+          headers: {Authorization: `Bearer ${access_token}`},
+        }
       );
       setSuccess("Billing information submitted successfully!");
       // After successful billing info submission, place the order
@@ -68,10 +70,12 @@ const Checkout = () => {
       price: item.price,
       quantity: item.quantity,
     }));
+
+    const accessToken = localStorage.getItem("access_token");
   
     const res = await fetch("http://localhost:8000/api/create_checkout_session/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}`,},
       body: JSON.stringify({ items }),
     });
   
