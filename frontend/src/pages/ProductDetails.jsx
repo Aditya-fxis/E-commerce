@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
+import Loader from "./Loader";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -17,15 +18,19 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
   const isLogin = useSelector((state) => state.auth.isLogin);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`http://127.0.0.1:8000/shop/${id}/`);
         setProduct(response.data);
-        setSelectedImage(response.data.main_image); // Default to main image
+        setSelectedImage(response.data.main_image);
       } catch (error) {
         console.error("Error fetching product details:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -72,6 +77,14 @@ const ProductDetail = () => {
       </div>
     );
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[400px]">
+        <Loader />
+      </div>
+    );
+  }
 
   if (!product)
     return <p className="text-center py-20 text-gray-500">Loading...</p>;

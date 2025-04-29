@@ -16,7 +16,8 @@ const Contact = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  
+  const accessToken = localStorage.getItem("access_token");
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +26,12 @@ const Contact = () => {
     setError(null);
 
     try {
-      const response = await axios.post("http://localhost:8000/contact/", formData);
+      const response = await axios.post("http://localhost:8000/contact/", formData,{
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       setSuccess("Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (err) {

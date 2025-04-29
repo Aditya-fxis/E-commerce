@@ -2,6 +2,7 @@ from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveUp
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import Product, Category, ContactMessage, BillingDetails, Order, ProductImage
@@ -14,14 +15,24 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from django.core.exceptions import ValidationError
+from django.core.files.images import get_image_dimensions
+
 # Setup logging
 logger = logging.getLogger(__name__)
 
 stripe.api_key = os.getenv("STRIPE_KEY_SECRET")
 
+class MyPagination(PageNumberPagination):
+    page_size = 5
+    
+def is_valid_image(file):
+    if file.content_type not in ['image/jpeg', 'image/png']:
+        raise ValidationError("Unsupported image type")
 
 class ProductLCView(ListCreateAPIView):
     serializer_class = ProductSerializer
+    pagination_class = MyPagination
 
     def get_queryset(self):
         try:
@@ -51,7 +62,11 @@ class ProductLCView(ListCreateAPIView):
 
                 images = request.FILES.getlist("uploaded_images")
                 for image in images:
-                    ProductImage.objects.create(product=product, image=image)
+                    try:
+                        is_valid_image(image)
+                        ProductImage.objects.create(product=product, image=image)
+                    except ValidationError as ve:
+                        logger.warning(f"Image skipped: {str(ve)}")
 
                 return Response(ProductSerializer(product).data, status=status.HTTP_201_CREATED)
 
@@ -63,8 +78,8 @@ class ProductLCView(ListCreateAPIView):
 
 class ProductRUDView(RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         try:
@@ -123,10 +138,11 @@ class BillingDetailsCreateView(CreateAPIView):
 
 
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
 def create_checkout_session(request):
     try:
         items = request.data.get("items", [])
+        if not items:
+            return Response({"error": "No items provided"}, status=status.HTTP_400_BAD_REQUEST)
 
         line_items = [
             {
@@ -142,7 +158,7 @@ def create_checkout_session(request):
         ]
 
         session = stripe.checkout.Session.create(
-            payment_method_types=["card"],
+            payment_method_types = ["card", "alipay", "amazon_pay", "cashapp", "affirm", "afterpay_clearpay", "klarna", "samsung_pay"],
             line_items=line_items,
             mode="payment",
             success_url="http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}",
@@ -151,7 +167,7 @@ def create_checkout_session(request):
 
         Order.objects.create(session_id=session.id, items=items, user=request.user)
 
-        return Response({"id": session.id})
+        return Response({"id": session.id})  # Return session id
     except Exception as e:
         logger.error(f"Error in create_checkout_session: {str(e)}")
         return Response({"error": "Failed to create checkout session"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

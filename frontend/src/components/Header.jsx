@@ -55,12 +55,15 @@ const Header = () => {
                       src={profile.profile_picture}
                       alt="Profile"
                       className="w-7 h-7 rounded-full object-cover cursor-pointer"
-                      onClick={()=>{
-                        navigate("/profile")
+                      onClick={() => {
+                        navigate("/profile");
                       }}
                     />
                   ) : (
-                    <Link to="/profile" className="w-7 h-7 pl-1 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs text-center font-bold">
+                    <Link
+                      to="/profile"
+                      className="w-7 h-7 pl-1 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs text-center font-bold"
+                    >
                       {getInitials(profile.first_name, profile.last_name)}
                     </Link>
                   )
@@ -191,20 +194,44 @@ const Header = () => {
 
         {/* Desktop Icons */}
         <div className="hidden md:flex items-center space-x-6 relative">
-          <Link to="/wishlist">
-            <MdOutlineFavoriteBorder className="text-2xl" />
-          </Link>
-          <Link to="/cart" className="relative">
-            <BsCart4 className="text-2xl" />
-            {totalQuantity > 0 && (
-              <span className="absolute top-[-6px] left-4 bg-red-500 text-white rounded-full px-1 text-xs font-bold">
-                {totalQuantity}
-              </span>
-            )}
-          </Link>
-          <Link to="/order">
-            <RiListOrdered2 className="text-xl" />
-          </Link>
+          <div className="relative group">
+            <Link to="/wishlist">
+              <MdOutlineFavoriteBorder className="text-2xl" />
+            </Link>
+
+            {/* Tooltip */}
+            <div className="absolute z-10 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-sm font-medium rounded-lg px-3 py-2 shadow-sm bottom-full left-1/2 transform -translate-x-1/2 mb-2">
+              Wishlist
+              {/* Arrow */}
+              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45 z-[-1]"></div>
+            </div>
+          </div>
+
+          <div className="relative group">
+            <Link to="/cart" className="relative">
+              <BsCart4 className="text-2xl" />
+              {totalQuantity > 0 && (
+                <span className="absolute top-[-6px] left-4 bg-red-500 text-white rounded-full px-1 text-xs font-bold">
+                  {totalQuantity}
+                </span>
+              )}
+            </Link>
+            <div className="absolute z-10 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-sm font-medium rounded-lg px-3 py-2 shadow-sm bottom-full left-1/2 transform -translate-x-1/2 mb-2">
+              Cart
+              {/* Arrow */}
+              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45 z-[-1]"></div>
+            </div>
+          </div>
+
+          <div className="relative group">
+            <Link to="/order">
+              <RiListOrdered2 className="text-xl" />
+            </Link>
+            <div className="absolute left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2 whitespace-nowrap z-10">
+              Orders
+            </div>
+          </div>
+
           <button
             onClick={() => {
               navigate("/checkout");

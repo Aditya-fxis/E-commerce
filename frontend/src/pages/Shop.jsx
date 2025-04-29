@@ -9,7 +9,6 @@ const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
-  const [sortBy, setSortBy] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isAddProductOpen, setIsAddProductOpen] = useState(false);
 
@@ -159,32 +158,12 @@ const Shop = () => {
 
       {/* Main Product Area */}
       <div className="w-full md:w-[85%]">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start mb-4">
-          <h2 className="text-center md:text-left">
-            Showing 1–12 of 126 results
-          </h2>
-
-          {/* Sort Dropdown */}
-          <div className="flex justify-center md:justify-end w-full md:w-auto mt-2 md:mt-0">
-            <h2 className="mr-2">Sort by Price:</h2>
-            <select
-              className="outline-none font-bold"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-            >
-              <option value="">None</option>
-              <option value="low-high">Low to High</option>
-              <option value="high-low">High to Low</option>
-            </select>
-          </div>
-        </div>
 
         {/* Product Listing */}
         <Products
           selectedCategory={selectedCategory}
           searchQuery={searchQuery}
           selectedPriceRange={selectedPriceRange}
-          sortBy={sortBy}
         />
       </div>
 

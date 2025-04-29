@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "./Loader";
 
 const Checkout = () => {
   const cart = useSelector((state) => state.cart);
@@ -40,29 +43,19 @@ const Checkout = () => {
       const response = await axios.post(
         "http://localhost:8000/billing/",
         formData, {
-          headers: {Authorization: `Bearer ${access_token}`},
+          headers: { Authorization: `Bearer ${access_token}` },
         }
       );
+      toast.success("Redirecting to Payment Page");
       setSuccess("Billing information submitted successfully!");
-      // After successful billing info submission, place the order
-      handlePayment();
-      setFormData({
-        firstname: "",
-        lastname: "",
-        apartment: "",
-        street: "",
-        country: "",
-        city: "",
-        state: "",
-        zip: "",
-        email: "",
-        phone: "",
-      });
+      handlePayment();  // Handle Stripe payment after form submission
     } catch (err) {
+      toast.error("Got Error");
       setError("Failed to submit billing information. Try again.");
     }
     setLoading(false);
   };
+
 
   const handlePayment = async () => {
     const items = cart.cartItems.map((item) => ({
@@ -70,23 +63,33 @@ const Checkout = () => {
       price: item.price,
       quantity: item.quantity,
     }));
-
-    const accessToken = localStorage.getItem("access_token");
   
+    const accessToken = localStorage.getItem("access_token");
+    
     const res = await fetch("http://localhost:8000/api/create_checkout_session/", {
       method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}`,},
+      headers: { 
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
       body: JSON.stringify({ items }),
     });
   
     const data = await res.json();
   
-    const stripe = await stripePromise;
-    stripe.redirectToCheckout({ sessionId: data.id });
+    if (data.id) {
+      const stripe = await stripePromise;
+      stripe.redirectToCheckout({ sessionId: data.id }); // Ensure you're using `sessionId`
+    } else {
+      toast.error("Error creating session.");
+    }
   };
+  
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-20 py-16">
+      <ToastContainer/>
+      {loading && <Loader/>}
       <div className="flex flex-col-reverse lg:flex-row gap-10">
         
         {/* Billing and Order Section */}

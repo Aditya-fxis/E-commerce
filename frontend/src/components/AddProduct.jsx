@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Loader from "../pages/Loader";
 
 const AddProduct = () => {
   const { id } = useParams();
@@ -30,6 +31,7 @@ const AddProduct = () => {
         const res = await axios.get("http://localhost:8000/category/");
         setCategories(res.data);
       } catch (err) {
+        toast.error("Failed to fetch categories")
         console.error("Failed to fetch categories", err);
       }
     };
@@ -43,6 +45,7 @@ const AddProduct = () => {
           images: "",
         });
       } catch (err) {
+        toast.error("Failed to fetch product details");
         console.error("Failed to fetch product details", err?.response);
       }
     };
@@ -116,6 +119,8 @@ const AddProduct = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-20 py-8 ">
+      <ToastContainer />
+       {loading && <Loader />}
       <div className="max-w-2xl mx-auto">
         <h1 className="text-lg sm:text-xl font-bold uppercase mb-2 text-center sm:text-left">
           {isEditMode ? "Edit Product Details" : "Add Product Details"}
@@ -245,6 +250,7 @@ const AddProduct = () => {
           </button>
         </form>
       </div>
+      {loading && <Loader/>}
     </div>
   );
 };
