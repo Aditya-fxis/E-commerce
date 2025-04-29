@@ -67,7 +67,7 @@ const Footer = () => {
 
             {/* Bottom Footer */}
             <div className="bg-black border-t border-gray-600 py-4 text-center">
-                <p className="text-sm text-gray-400">© {currentYear} Your Brand Name. All Rights Reserved.</p>
+                <p className="text-sm text-gray-400">© {currentYear} Aditya Patel. All Rights Reserved.</p>
             </div>
         </footer>
     );

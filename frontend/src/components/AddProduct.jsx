@@ -25,10 +25,14 @@ const AddProduct = () => {
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState([]);
 
+  const accessToken = localStorage.getItem("access_token");
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/category/");
+        const res = await axios.get("http://localhost:8000/category/", {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
         setCategories(res.data);
       } catch (err) {
         toast.error("Failed to fetch categories")
@@ -38,7 +42,9 @@ const AddProduct = () => {
 
     const fetchProductDetails = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/shop/${id}/`);
+        const res = await axios.get(`http://localhost:8000/shop/${id}/`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
         setFormData({
           ...res.data,
           main_image: "",
@@ -89,6 +95,7 @@ const AddProduct = () => {
         data: formDataToSend,
         headers: {
           "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${accessToken}`,
         },
       });
 

@@ -85,11 +85,11 @@ const Order = () => {
                     <div>
                       <p className="font-medium">{item.name}</p>
                       <p className="text-sm text-gray-500">
-                        ₹{item.price} × {item.quantity}
+                        ${item.price} × {item.quantity}
                       </p>
                     </div>
                     <p className="text-sm font-semibold text-gray-800">
-                      ₹{item.price * item.quantity}
+                      ${item.price * item.quantity}
                     </p>
                   </div>
                 ))}
@@ -98,7 +98,7 @@ const Order = () => {
               {/* Total and Pay button */}
               <div className="mt-6 flex justify-between items-center">
                 <div className="text-lg font-bold text-gray-800">
-                  Total: ₹{calculateTotal(order.items)}
+                  Total: ${calculateTotal(order.items)}
                 </div>
                 {!order.paid && (
                   <button

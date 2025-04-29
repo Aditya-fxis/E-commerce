@@ -41,9 +41,9 @@ const AboutUs = () => {
       </div>
 
       {/* Testimonial Section */}
-      <section className="bg-gray-100 py-12 px-4">
+      <section className="bg-gray-100 -md:py-12 ">
         <div className="container mx-auto flex flex-col-reverse md:flex-row items-center gap-8">
-          <div className="md:w-1/2 text-center md:text-left">
+          <div className="md:w-1/2 lg:px-30 text-center md:text-left">
             <p className="text-base sm:text-lg italic leading-relaxed">
               “Going out after work? Take your butane curling iron with you to
               the office, heat it up, style your hair before you leave the
@@ -85,21 +85,21 @@ const AboutUs = () => {
       </section>
 
       {/* Team Section */}
-      <section className="team py-16 bg-gray-50">
+      <section className="team py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl sm:text-3xl font-semibold mb-10">Meet Our Team</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 px-16">
             {[
               { name: "John Smith", role: "Fashion Design", img: "team-1.jpg" },
               { name: "Christine Wise", role: "C.E.O", img: "team-2.jpg" },
               { name: "Sean Robbins", role: "Manager", img: "team-3.jpg" },
               { name: "Lucy Myers", role: "Delivery", img: "team-4.jpg" },
             ].map((member, index) => (
-              <div key={index} className="bg-white shadow-sm p-4 rounded-md">
+              <div key={index} className="px-8">
                 <img
                   src={member.img}
                   alt={member.name}
-                  className="w-full h-auto rounded mb-4"
+                  className="w-full h-auto mb-4"
                 />
                 <h4 className="font-semibold text-lg">{member.name}</h4>
                 <span className="text-sm text-gray-500">{member.role}</span>
