@@ -67,12 +67,7 @@ const Header = () => {
                       {getInitials(profile.first_name, profile.last_name)}
                     </Link>
                   )
-                ) : (
-                  <div className="w-32 h-32 rounded-full bg-blue-500 text-white flex items-center justify-center text-3xl font-bold">
-                    {/* Default initials or empty */}
-                    {getInitials("Guest", "User")}
-                  </div>
-                )}
+                ) : null}
                 <button
                   onClick={handleLogout}
                   className="hover:underline cursor-pointer tracking-wider uppercase"
@@ -227,8 +222,10 @@ const Header = () => {
             <Link to="/order">
               <RiListOrdered2 className="text-xl" />
             </Link>
-            <div className="absolute left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2 whitespace-nowrap z-10">
+            <div className="absolute z-10 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-sm font-medium rounded-lg px-3 py-2 shadow-sm bottom-full left-1/2 transform -translate-x-1/2 mb-2">
               Orders
+              {/* Arrow */}
+              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45 z-[-1]"></div>
             </div>
           </div>
 
